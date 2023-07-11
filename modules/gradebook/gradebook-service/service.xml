@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds"
+	package-path="com.liferay.training.gradebook"
+	auto-namespace-tables="true">
+	<author>hgrahul</author>
+	<namespace>Gradebook</namespace>
+
+	<!-- Define Assignment Entity -->
+	<entity name="Assignment" local-service="true"
+		remote-service="true" uuid="true">
+		<!-- PK fields -->
+		<column name="assignmentId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+
+		<!-- Actual Assignment Field -->
+		<column name="title" type="String" localized="true" />
+		<column name="description" type="String" localized="true" />
+		<column name="dueDate" type="Date" />
+
+		<!--  Asset and Status Field For Assignment  -->
+		<column name="status" type="int"/>
+		<column name="statusByUserId" type="long"/>
+		<column name="statusByUserName" type="String"/>
+		<column name="statusDate" type="Date"/>
+
+		<!-- Ordering For Assignment Entity -->
+		<order by="asc">
+			<order-column name="title" />
+		</order>
+
+		<!-- To Get A List Of Assignment Based On SiteId -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
+		<!-- Reference To Group Entity Services -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- Reference To Asset Level Entity Services -->
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink"
+			package-path="com.liferay.portlet.asset" />
+	</entity>
+
+	<!-- Define Submission Entity -->
+	<entity name="Submission" local-service="true"
+		remote-service="true" uuid="true">
+		<!-- Foreign Key For Assignment Entity -->
+		<column name="assignmentId" type="long" />
+
+		<!-- PK fields -->
+		<column name="submissionId" primary="true" type="long"></column>
+
+		<!-- Group instance -->
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+
+		<!-- Actual Submission Field -->
+		<column name="studentId" type="long" />
+		<column name="submitDate" type="Date" />
+		<column name="submissionText" type="String" />
+		<column name="comment" type="String" />
+		<column name="grade" type="int" />
+
+		<!-- Finder For Submission -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
+		<finder name="G_A" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="assignmentId" />
+		</finder>
+
+		<finder name="StudentId" return-type="Collection">
+			<finder-column name="studentId" />
+		</finder>
+
+		<finder name="StudentIdAssignmentId" return-type="Collection">
+			<finder-column name="studentId" />
+			<finder-column name="assignmentId" />
+		</finder>
+
+		<!-- Reference To Group Entity Services -->
+		<reference entity="Group" package-path="com.liferay.portal" />
+
+		<!-- Reference To Asset Level Entity Services -->
+		<reference entity="AssetEntry"
+			package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag"
+			package-path="com.liferay.portlet.asset" />
+	</entity>
+
+	<!-- Define Exception -->
+	<exceptions>
+		<exception>AssignmentValidation</exception>
+		<exception>SubmissionValidation</exception>
+	</exceptions>
+</service-builder>

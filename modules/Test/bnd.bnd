@@ -1,0 +1,4 @@
+Bundle-Name: Test
+Bundle-SymbolicName: com.adjecti.test
+Bundle-Version: 1.0.0
+Export-Package: com.adjecti.test.constants

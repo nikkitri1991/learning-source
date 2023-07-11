@@ -1,0 +1,4 @@
+Bundle-Name: dynamic-query-example
+Bundle-SymbolicName: com.adjecti.dynamicQuery
+Bundle-Version: 1.0.0
+Export-Package: com.adjecti.dynamicQuery.constants

@@ -1,0 +1,4 @@
+Bundle-Name: cron
+Bundle-SymbolicName: com.adjecti
+Bundle-Version: 1.0.0
+Export-Package: com.adjecti.constants
